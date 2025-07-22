@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/mnt/hpc/work/mhibatal/Adaptive_opt/train_traditional_cRNN.py", line 113, in <module>
+    main()
+  File "/mnt/hpc/work/mhibatal/Adaptive_opt/train_traditional_cRNN.py", line 109, in main
+    train(args.N, args.MODEL_TYPE)
+  File "/mnt/hpc/work/mhibatal/Adaptive_opt/train_traditional_cRNN.py", line 83, in train
+    with open(f'./Adaptive_cluster_{args.NUMSTEPS}/{args.NAME}/Params/{args.MAX_POWER}_{epoch}_params.pkl', 'wb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: './Adaptive_cluster_100000/Traditional_Epoch100000_GRU_N64/Params/8_99999_params.pkl'

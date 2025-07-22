@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/mnt/hpc/work/mhibatal/Adaptive_opt/train_adaptive_cRNN.py", line 140, in <module>
+    main()
+  File "/mnt/hpc/work/mhibatal/Adaptive_opt/train_adaptive_cRNN.py", line 137, in main
+    train(args.N, args.MODEL_TYPE)
+  File "/mnt/hpc/work/mhibatal/Adaptive_opt/train_adaptive_cRNN.py", line 120, in train
+    np.savetxt(save_path_data, finalE)
+NameError: name 'np' is not defined. Did you mean: 'jnp'?
