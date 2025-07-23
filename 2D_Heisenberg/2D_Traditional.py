@@ -12,11 +12,11 @@ import jax.numpy as jnp
 import optax
 import argparse
 jax.config.update("jax_enable_x64", True)
-parser = argparse.ArgumentParser(description='cifar10 classification models, cpu performance test')
-parser.add_argument('--Nx', type=int, default=8, help='')
-parser.add_argument('--Ny', type=int, default=8, help='')
-parser.add_argument('--NUMBER_OF_SAMPLES', default=500, help='')
-parser.add_argument('--NAME', type=str, default="Trial", help='')
+parser = argparse.ArgumentParser(description='Traditional 2D RNN for 2D Heisenberg')
+parser.add_argument('--Nx', type=int, default=8, help='System size in x dimension')
+parser.add_argument('--Ny', type=int, default=8, help='System size in y dimension')
+parser.add_argument('--NUMBER_OF_SAMPLES', default=500, help='Number of samples used each step')
+parser.add_argument('--NAME', type=str, default="Test", help='Name of directory to save results')
 args = parser.parse_args()
 
 starttime = time.perf_counter()
