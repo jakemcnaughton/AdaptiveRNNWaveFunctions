@@ -1,6 +1,6 @@
 # Adaptive RNN Wave Functions
 
-A JAX-based implementation of **Adaptive Recurrent Neural Network (RNN) Wave Functions/Quantum States** for ground state problems using Variational Monte Carlo (VMC). The adaptive training scheme increases model complexity during optimization, providing enhanced stability and expressivity.
+A JAX-based implementation of **Adaptive Recurrent Neural Network (RNN) Wave Functions/Quantum States** for ground state problems using Variational Monte Carlo (VMC). 
 
 ## 🚀 Overview
 
