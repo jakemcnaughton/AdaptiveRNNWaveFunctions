@@ -14,7 +14,7 @@ from flax.training import early_stopping
 jax.config.update("jax_enable_x64", True)
 import argparse
 
-parser = argparse.ArgumentParser(description='cifar10 classification models, cpu performance test')
+parser = argparse.ArgumentParser(description='Traditional RNN for the 1DTFIM')
 parser.add_argument('--N', type=int, default=20, help='System size')
 parser.add_argument('--OUTPUT_DIMENSION', default=2, help='')
 parser.add_argument('--NUMBER_OF_SAMPLES', default=100, help='Samples used per step')
