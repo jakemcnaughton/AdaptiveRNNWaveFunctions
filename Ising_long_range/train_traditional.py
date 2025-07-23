@@ -45,17 +45,12 @@ def train(N, model_type):
     opt_state = optimizer.init(params_init)
     rng_key = jax.random.key(1)
 
-    #early_stop = early_stopping.EarlyStopping(min_delta=0.0001, patience=200)
-
     energies = []
     losses = []
     variations = []
     durations = []
     params = params_init
 
-    #if not os.path.exists(f'../{args.NAME}/Params/{args.NAME}_{model_type}_{N}'):
-    #    os.makedirs(f'../{args.NAME}/Params/{args.NAME}_{model_type}_{N}/')
-    #while early_stop.should_stop is False:
     for epoch in range(1, 2000):
         s = time.time()
         params, opt_state, (loss, eloc), rng_key = step(params, rng_key, opt_state)
@@ -66,17 +61,9 @@ def train(N, model_type):
         current_energy = jnp.mean(eloc)
         losses.append(loss)
         variations.append(jnp.var(eloc))
-        #early_stop = early_stop.update(current_energy)
         if epoch % 5 == 0:
             print("Step = {}, Energy = {:.6f}, Var = {:.6f}, Loss = {:.6f}".format(epoch, jnp.mean(eloc), jnp.var(eloc), loss))
-        energies.append(current_energy)
-        #if jnp.var(eloc) < 0.0001:
-        #    print("Done! Stopped with Var < 0.0001")
-        #    break
-        #if early_stop.should_stop:
-        #    print('Done! Stopped due to early stopping')
-        #epoch += 1
-        
+        energies.append(current_energy)        
        
 
     dict_0 = {'Energies': [float(x) for x in energies], 'Losses': [float(x) for x in losses],

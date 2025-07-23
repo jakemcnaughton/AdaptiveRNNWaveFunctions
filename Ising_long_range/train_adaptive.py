@@ -65,7 +65,6 @@ def train(N, model_type):
 
         if dim < args.MAX_POWER - 1:
             model_epoch_count = 0
-            #early_stop = early_stopping.EarlyStopping(min_delta=10**(-(dim+1)), patience=2**(13-dim))
             while model_epoch_count <= 200: #dim goes from 0 to 7.. 1st model must met 0.01, last one 0.01/8
                 s = time.time()
                 params, opt_state, (loss, eloc), rng_key = step(params, rng_key, opt_state, m=dim)
@@ -78,7 +77,6 @@ def train(N, model_type):
                 losses.append(loss)
                 variations.append(jnp.var(eloc))
                 durations.append(e - s)
-                #early_stop = early_stop.update(current_energy)
                 if epoch % 5 == 0:
                     print("Step = {}, Energy = {:.6f}, Var = {:.6f}".format(epoch, jnp.mean(eloc), jnp.var(eloc)))
                 epoch += 1
@@ -94,7 +92,6 @@ def train(N, model_type):
                 losses.append(loss)
                 variations.append(jnp.var(eloc))
                 durations.append(e - s)
-                #early_stop = early_stop.update(current_energy)
                 if epoch % 5 == 0:
                     print("Step = {}, Energy = {:.6f}, Var = {:.6f}".format(epoch, jnp.mean(eloc), jnp.var(eloc)))
                 epoch += 1

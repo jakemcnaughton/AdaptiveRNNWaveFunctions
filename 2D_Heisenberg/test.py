@@ -4,7 +4,7 @@ import argparse
 import time
 import numpy as np
 import jax
-from TwoD_Helper_Functions import get_loss, generate_models, param_transform_automatic, final_energy, StackedRNNModel, final_energy_testing
+from TwoD_Helper_Functions import get_loss, generate_models, param_transform_automatic, final_energy, StackedRNNModel
 jax.config.update("jax_enable_x64", True)
 
 runs=100
@@ -31,7 +31,7 @@ for file in include:
     model = StackedRNNModel(2**8, 2**8, 1, "GRU")
     for i in range(runs):
         key, subkey = jax.random.split(key)
-        result = final_energy_testing(params, subkey, model, 6, 6, samples)
+        result = final_energy(params, subkey, model, 6, 6, samples)
         results.extend(result)
     energies.append(np.mean(results))
     print(energies[-1])

@@ -1,6 +1,6 @@
 import os
 from TwoD_Helper_Functions import get_loss, final_energy
-from New_2D_RNN import StackedRNNModel
+from TwoD_RNN import StackedRNNModel
 from jax import jit
 import pandas as pd
 import time

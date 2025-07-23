@@ -21,13 +21,11 @@ def local_energy(samples, params, model, log_psi) -> List[complex]:
         flipped_state = flipped_state.at[:, i+1].set(1-flipped_state[:, i+1])
         flipped_logpsi = model.apply(params,flipped_state) 
         output += -(1-2*flipped_state[:, i])*jnp.exp(flipped_logpsi - log_psi)  #-flipped_state[:, i] is for Z_i term
-        # output += -jnp.exp(flipped_logpsi - log_psi)  # Debug
         return s, output
 
     # Off Diagonal Term
     output = jnp.zeros((NUMBER_OF_SAMPLES), dtype=jnp.complex128)
     _, off_diag_term = jax.lax.fori_loop(2-1, N-2, step_fn_cluster, (samples, output))
-    # _, off_diag_term = jax.lax.fori_loop(0, N, step_fn_cluster, (samples, output)) #Debug if you change samples to spins, it does not work suddently :( ???
 
     flipped_state = samples.at[:, 1].set(1-samples[:, 1])
     flipped_logpsi = model.apply(params,flipped_state) 
@@ -56,7 +54,6 @@ def get_loss(params, key, NUMBER_OF_SAMPLES, N, model):
 
     loss = 2*jnp.real(jnp.mean(jnp.conjugate(log_psi)*(e_loc-e_avg)))
     return loss, e_loc
-
 
 def recursive_items(dictionary, current_path=None):
     if current_path is None:
@@ -89,10 +86,8 @@ def param_transform_automatic(params, n, models, key2, x):
     for path, value in recursive_items(params, []):
         small_item = access_item(params, path)
         large_item = access_item(params_large, path)
-        #new_value = jnp.zeros_like(large_item)
         key = jax.random.PRNGKey(0)
         new_value = jax.random.uniform(key, large_item.shape, minval=-1, maxval=1) * 10 ** (-n)
-        #new_value = jnp.full(large_item.shape, 10**(-n))
         if len(small_item.shape) == 1:
             new_value = new_value.at[:small_item.shape[0]].set(small_item)
         elif len(small_item.shape) == 2:
@@ -110,8 +105,6 @@ def generate_models(max_power_2=8, cell="Vanilla", o_dim=2):
 def final_energy(params, key, model, N, num_samples_final):
   samples = model.apply(params,key, num_samples_final, N, method="sample")
   log_psi = model.apply(params,samples)
-#   queue_samples = jnp.zeros((N,num_samples_final, N), dtype = jnp.float64)
-#   offdiag_logpsi = jnp.zeros((N*num_samples_final), dtype = jnp.float64)
   e_loc = local_energy(samples, params, model, log_psi)
   return jnp.mean(e_loc), jnp.var(e_loc), jnp.sqrt(jnp.var(e_loc))/jnp.sqrt(num_samples_final)
 

@@ -93,24 +93,3 @@ class CRNNModel(nn.Module):
             samples = samples.at[:,n].set(jax.random.categorical(key=keys[n], logits=inputs))
             inputs = jax.nn.one_hot(samples[:,n], num_classes=2)
         return samples
-
-    # def sample_and_logprobs(self,key,numsamples,N):
-    #     """Sample with log probs from the model for a given system size N and a number of samples `numsamples`"""
-    #     inputs = jnp.zeros((numsamples,self.output_dim), dtype = jnp.float64)
-    #     hidden_states = self.cell.initialize_carry(jax.random.key(1), inputs.shape)
-    #     # hidden_states = jnp.zeros((numsamples,self.num_hidden_units), dtype = jnp.float64)
-    #     samples_onehot = jnp.zeros((numsamples,N,self.output_dim), dtype = jnp.float64)
-    #     samples = jnp.zeros((numsamples,N), dtype = jnp.float64)
-    #     cond_log_probs = jnp.zeros((numsamples,N,2))
-    #     keys = jax.random.split(key, N) #pre-generate keys to get more randomness
-
-    #     for n in range(N):
-    #         hidden_states,inputs = self.cell(hidden_states,inputs)  # apply each layer
-    #         inputs = self.dense(inputs)
-    #         cond_log_probs = cond_log_probs.at[:,n].set(nn.log_softmax(inputs, axis=-1))
-    #         samples = samples.at[:,n].set(jax.random.categorical(key=keys[n], logits=inputs))
-    #         inputs = jax.nn.one_hot(samples[:,n], num_classes=2)
-    #         samples_onehot = samples_onehot.at[:,n].set(inputs)
-
-    #     log_probabilities = jnp.sum(cond_log_probs * samples_onehot, axis = (1,2))
-    #     return samples,log_probabilities

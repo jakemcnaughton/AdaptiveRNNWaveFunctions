@@ -40,16 +40,12 @@ def local_energy(samples, params, model, queue_samples, offdiag_logpsi, log_psi)
 
 def get_loss(params, key, NUMBER_OF_SAMPLES, N, model, queue_samples, offdiag_logpsi):
     samples = model.apply(params, key, NUMBER_OF_SAMPLES, N,
-                          method="sample")  # This line with the next one take ~18.62it/s for N = 20 1DTFIM
+                          method="sample") 
     log_probs = model.apply(params, samples)
     e_loc = jax.lax.stop_gradient(local_energy(samples, params, model, queue_samples, offdiag_logpsi, 0.5 * log_probs))
     e_avg = e_loc.mean()
 
-    # We expand the equation in the text above
-    first_term = jnp.multiply(log_probs, e_loc)
-    second_term = jnp.multiply(e_avg, log_probs)
-
-    loss = jnp.mean(first_term - second_term)
+    loss = jnp.mean(jnp.multiply(log_probs, e_loc) - jnp.multiply(e_avg, log_probs))
     return loss, e_loc
 
 

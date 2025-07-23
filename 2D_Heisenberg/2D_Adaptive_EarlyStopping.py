@@ -1,6 +1,7 @@
 import os
 from functools import partial
 from TwoD_Helper_Functions import get_loss, generate_models, param_transform_automatic, final_energy, opt_state_transform_automatic
+from TwoD_RNN import StackedRNNModel
 import pandas as pd
 from jax import jit
 import time

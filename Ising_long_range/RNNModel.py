@@ -18,7 +18,6 @@ class RNNModel(nn.Module):
             name='gru_cell',
             features=self.num_hidden_units,
             kernel_init = jax.nn.initializers.glorot_uniform(),
-            #kernel_init = jax.nn.initializers.variance_scaling(1.0/self.num_hidden_units, "fan_avg", "uniform"),
             param_dtype = jnp.float64
         )
       elif self.RNNcell_type == "LSTM":
@@ -26,7 +25,6 @@ class RNNModel(nn.Module):
             name='lstm_cell',
             features=self.num_hidden_units,
             kernel_init = jax.nn.initializers.glorot_uniform(),
-            #kernel_init = jax.nn.initializers.variance_scaling(1.0/self.num_hidden_units, "fan_avg", "uniform"),
             param_dtype = jnp.float64
         )
       elif self.RNNcell_type == "Vanilla":
@@ -34,8 +32,6 @@ class RNNModel(nn.Module):
             name='vanilla_cell',
             features=self.num_hidden_units,
             kernel_init = jax.nn.initializers.glorot_uniform(),
-            #kernel_init = jax.nn.initializers.variance_scaling(1.0/self.num_hidden_units, "fan_avg", "uniform"),
-            #kernel_init = jax.nn.initializers.variance_scaling(1.0/self.model_scale, "fan_avg", "uniform"),
             param_dtype = jnp.float64
         )
       else:

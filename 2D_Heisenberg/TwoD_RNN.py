@@ -66,9 +66,6 @@ class TwoDRNN(nn.Module):
         else:
           concatenate_inputs = inputs
 
-        # contatenated_hidden_states = jnp.concatenate(hidden_states, axis = -1)
-        # new_hidden_state = jax.vmap(lambda u: u @ self.U)(contatenated_hidden_states)
-
         new_hidden_state = jax.vmap(lambda u: u @ self.U1)(hidden_states[0])
         new_hidden_state += jax.vmap(lambda u: u @ self.U2)(hidden_states[1])
 

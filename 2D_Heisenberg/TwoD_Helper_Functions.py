@@ -7,64 +7,6 @@ from jax import jit
 from math import ceil
 jax.config.update("jax_enable_x64", True)
 
-"""def local_energy(samples, params, model, queue_samples, offdiag_logpsi, log_psi) -> List[float]:
-    #Computes the local energy of the 2D Heisenberg model
-    numsamples,Nx,Ny = samples.shape
-    N = Nx*Ny
-
-    local_energies = jnp.zeros((numsamples), dtype = jnp.float64)
-
-    for i in range(Nx-1): #diagonal elements (right neighbours)
-        spins_products = 0.25*(2*samples[:,i]-1)*(2*samples[:,i+1]-1)
-        local_energies += jnp.sum(jnp.copy(spins_products), axis = 1)
-
-    for j in range(Ny-1): #diagonal elements (upward neighbours (or downward, it depends on the way you see the lattice))
-        spins_products = 0.25*(2*samples[:,:,j]-1)*(2*samples[:,:,j+1]-1)
-        local_energies += jnp.sum(jnp.copy(spins_products), axis = 1)
-
-    non_diagonals = jnp.zeros((2*Nx, Ny,numsamples), dtype = jnp.float64)
-
-    def step_fn_offdiag(n, state):
-        s, non_diagonals, queue_samples = state
-        _, Nx,Ny = s.shape
-
-        i = (n//Ny) #set back to zero when equal to Nx-1
-        j = n%Ny
-
-        def horizontal(non_diagonals,queue_samples):
-          flipped_state = s.at[:, i,j].set(1 - s[:, i,j])
-          flipped_state = flipped_state.at[:, i+1,j].set(1 - flipped_state[:, i+1,j])
-          queue_samples = queue_samples.at[i,j].set(flipped_state)
-          non_diagonals = non_diagonals.at[i,j].set((s[:, i,j] + s[:, i+1,j] == 1)*(-0.5))
-          return non_diagonals, queue_samples
-        non_diagonals, queue_samples  = jax.lax.cond(i!=Nx-1, horizontal, lambda x,y : (x,y), non_diagonals,queue_samples)
-
-        def vertical(non_diagonals,queue_samples):
-          flipped_state = s.at[:, i,j].set(1 - s[:, i,j])
-          flipped_state = flipped_state.at[:, i,j+1].set(1 - flipped_state[:, i,j+1])
-          queue_samples = queue_samples.at[i+Nx,j].set(flipped_state)
-          non_diagonals = non_diagonals.at[i+Nx,j].set((s[:, i,j] + s[:, i,j+1] == 1)*(-0.5))
-          return non_diagonals, queue_samples
-        non_diagonals, queue_samples = jax.lax.cond(j!=Ny-1, vertical, lambda x,y : (x,y), non_diagonals,queue_samples)
-
-        return s, non_diagonals, queue_samples
-
-    _, non_diagonals, queue_samples = jax.lax.fori_loop(0, N, step_fn_offdiag, (samples, non_diagonals, queue_samples))
-
-    len_sigmas = 2*N*numsamples
-    #Decrease the 10,000
-    num_offdiag_steps = ceil(len_sigmas/10000) #We want a maximum number in batch size to not allocate too much memory while minimizing the number of models calls to get the most out of parallelization
-    print(num_offdiag_steps, flush=True)
-    for i in range(num_offdiag_steps):
-        if i < num_offdiag_steps-1:
-            cut = slice((i*len_sigmas)//num_offdiag_steps,((i+1)*len_sigmas)//num_offdiag_steps)
-        else:
-            cut = slice((i*len_sigmas)//num_offdiag_steps,len_sigmas)
-        offdiag_logpsi = offdiag_logpsi.at[cut].set(0.5*model.apply(params,queue_samples.reshape(2*N*numsamples,Nx,Ny)[cut]))
-    offdiag_term = jnp.sum(non_diagonals*jnp.exp(offdiag_logpsi.reshape(2*Nx, Ny,numsamples) - log_psi.reshape(1,numsamples)), axis = (0,1))
-    local_energies += offdiag_term
-    return local_energies"""
-
 def local_energy(samples, params, model, log_psi) -> List[float]:
 
     #Computes the local energy of the 2D Heisenberg model
@@ -159,8 +101,6 @@ def param_transform_automatic(params, n, models, key2, x):
         #new_value = jnp.zeros_like(large_item)
         key = jax.random.PRNGKey(0)
         new_value = jax.random.uniform(key, large_item.shape, minval=-1, maxval=1) * 10 ** (-n)
-        #new_value = jnp.full(large_item.shape, 10**(-n))
-        #jax.nn.initializers.glorot_uniform()
         if len(small_item.shape) == 1:
             new_value = new_value.at[:small_item.shape[0]].set(small_item)
         elif len(small_item.shape) == 2:
@@ -200,17 +140,7 @@ def opt_state_transform_automatic(opt_state_old, opt_state_new):
     return opt_state_new
 
 def final_energy(params, key, model, Nx, Ny, num_samples_final):
-  samples = model.apply(params,key, num_samples_final, Nx, Ny, method="sample")
-  log_probs = model.apply(params,samples)
-  queue_samples = jnp.zeros((2*Nx, Ny,num_samples_final, Nx, Ny), dtype = jnp.float64)
-  offdiag_logpsi = jnp.zeros((2*Nx*Ny*num_samples_final), dtype = jnp.float64)
-  e_loc = local_energy(samples, params, model, queue_samples, offdiag_logpsi, 0.5*log_probs)
-  return jnp.mean(e_loc), jnp.var(e_loc), jnp.sqrt(jnp.var(e_loc))/jnp.sqrt(num_samples_final)
-
-def final_energy_testing(params, key, model, Nx, Ny, num_samples_final):
   samples = model.apply(params, key, num_samples_final, Nx, Ny, method="sample")
   log_probs = model.apply(params,samples)
-  #queue_samples = jnp.zeros((2*Nx, Ny,num_samples_final, Nx, Ny), dtype = jnp.float64)
-  #offdiag_logpsi = jnp.zeros((2*Nx*Ny*num_samples_final), dtype = jnp.float64)
   e_loc = local_energy(samples, params, model, 0.5*log_probs)#, offdiag_logpsi, 0.5*log_probs)
   return e_loc
