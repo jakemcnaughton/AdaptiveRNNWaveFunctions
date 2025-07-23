@@ -16,7 +16,7 @@ import argparse
 parser = argparse.ArgumentParser(description='Adaptive RNN for the 1DTFIM')
 parser.add_argument('--N', type=int, help='System size')
 parser.add_argument('--OUTPUT_DIMENSION', default=2, help='Corresponds to spin values: 0 or 1')
-parser.add_argument('--NUMBER_OF_SAMPLES', default=500, help='Number of samples used per step')
+parser.add_argument('--NUMBER_OF_SAMPLES', default=100, help='Number of samples used per step')
 parser.add_argument('--LR_1', default=0.005, type=float, help='Learning rate for the first half of training')
 parser.add_argument('--LR_2', default=0.0005, type=float, help='Learning rate for the second half of training')
 parser.add_argument('--MAX_POWER', type=int, default=8, help='Maximum power of 2 for the final model dimension and hidden dimension')
