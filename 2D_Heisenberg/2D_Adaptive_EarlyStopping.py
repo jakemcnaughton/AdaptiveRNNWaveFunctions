@@ -15,14 +15,13 @@ jax.config.update("jax_enable_x64", True)
 from flax.training import early_stopping
 import argparse
 
-parser = argparse.ArgumentParser(description='cifar10 classification models, cpu performance test')
-parser.add_argument('--Nx', type=int, default=6, help='')
-parser.add_argument('--Ny', type=int, default=6, help='')
-parser.add_argument('--NUMBER_OF_SAMPLES', default=500, help='')
-parser.add_argument('--MAX_POWER', type=int, default=8, help='')
-parser.add_argument('--MODEL_TYPE', type=str, default="GRU", help='')
-parser.add_argument('--NAME', type=str, default="Test", help='')
-parser.add_argument('--LR', type=float, default=0.01, help='')
+parser = argparse.ArgumentParser(description='Adaptive 2D RNN with Early Stopping for 2D Heisenberg')
+parser.add_argument('--Nx', type=int, default=6, help='System size in x dimension')
+parser.add_argument('--Ny', type=int, default=6, help='System size in y dimension')
+parser.add_argument('--NUMBER_OF_SAMPLES', default=500, help='Number of samples for each step')
+parser.add_argument('--MAX_POWER', type=int, default=8, help='Maximum power of 2 for the hidden state dimension and model dimension')
+parser.add_argument('--MODEL_TYPE', type=str, default="GRU", help='Model type: Vanilla or GRU')
+parser.add_argument('--NAME', type=str, default="Test", help='Name of directory to save results')
 args = parser.parse_args()
 
 if not os.path.exists(f'../Results/2D_Heisenberg/{args.Nx}x{args.Ny}/Adaptive/{args.NAME}/'):
