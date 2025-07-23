@@ -14,13 +14,13 @@ jax.config.update("jax_enable_x64", True)
 import argparse
 from jax.tree_util import tree_map
 
-parser = argparse.ArgumentParser(description='cifar10 classification models, cpu performance test')
-parser.add_argument('--Nx', type=int, default=6, help='')
-parser.add_argument('--Ny', type=int, default=6, help='')
-parser.add_argument('--NUMBER_OF_SAMPLES', default=10, help='')
-parser.add_argument('--MAX_POWER', type=int, default=8, help='')
-parser.add_argument('--MODEL_TYPE', type=str, default="GRU", help='')
-parser.add_argument('--NAME', type=str, default="Test", help='')
+parser = argparse.ArgumentParser(description='Adaptive 2D RNN for 2D Heisenberg')
+parser.add_argument('--Nx', type=int, default=6, help='System size in x dimension')
+parser.add_argument('--Ny', type=int, default=6, help='System size in y dimension')
+parser.add_argument('--NUMBER_OF_SAMPLES', default=500, help='Number of samples used each step')
+parser.add_argument('--MAX_POWER', type=int, default=8, help='Maximum power of 2 for the model dimension and hidden dimension')
+parser.add_argument('--MODEL_TYPE', type=str, default="GRU", help='RNN cell type: Vanilla or GRU')
+parser.add_argument('--NAME', type=str, default="Test", help='Name of directory to save results')
 args = parser.parse_args()
 
 @jax.jit
