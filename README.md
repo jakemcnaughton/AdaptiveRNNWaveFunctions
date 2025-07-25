@@ -6,11 +6,37 @@ A JAX-based implementation of **Adaptive Recurrent Neural Network (RNN) Wave Fun
 
 This project introduces **Adaptive RNN Wave Functions** for variational quantum Monte Carlo (VMC) simulations. Instead of fixing the architecture size from the start, the model **grows in complexity during training**, allowing better navigation of rugged optimization landscapes, reducing training runtime and even improving accuracy.
 
-## Content
+## Usage
 
 ### 1D TFIM
+To run the **Adaptive** 1D TFIM model use 
+```
+python train_adaptive.py
+```
+and for the **Static** 1D TFIM model
+```
+python train_traditional.py
+```
+To learn more about the arguments that can be specified add the ``` --help ``` flag:
+
+```
+python train_adaptive.py --help
+python train_traditional.py --help
+```
 
 ### 2D Heisenberg
+To run the **Adaptive** 2D Heisenberg model use 
+```
+python 2D_Adaptive.py
+```
+for the **Early Stopping** variant of the **Adaptive** 2D Heisenberg model use
+```
+python 2D_Traditional.py
+```
+and for the **Static** 2D Heisenberg model
+```
+python 2D_Adaptive_EarlyStopping.py
+```
 
 ### 1D long-range TFIM
 
