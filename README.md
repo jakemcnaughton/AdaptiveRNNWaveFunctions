@@ -4,12 +4,12 @@ A JAX-based implementation of **Adaptive Recurrent Neural Network (RNN) Wave Fun
 
 ## 🚀 Overview
 
-This project introduces **Adaptive RNN Wave Functions** for variational quantum Monte Carlo (VMC) simulations. Instead of fixing the architecture size from the start, the model **grows in complexity during training**, allowing better navigation of rugged optimization landscapes, reducing training runtime and even improving accuracy.
+This project introduces **Adaptive RNN Wave Functions** for variational quantum Monte Carlo (VMC) simulations. Instead of fixing the architecture size from the start, the model **grows in complexity during training**, allowing better navigation of rugged optimization landscapes, reducing training runtime, and even improving accuracy.
 
 ## Usage
 
 ### `1D_TFIM`
-To run the **Adaptive** 1D RNN on the 1D TFIM model use 
+To run the **Adaptive** 1D RNN on the 1D Transverse-field Ising Model (TFIM) model use 
 ```
 python train_adaptive.py
 ```
@@ -54,7 +54,7 @@ To run the **Adaptive** 1D complex RNN on the 1D Cluster state Hamiltonian, you 
 ```
 python train_adaptive_cRNN.py
 ```
-and for the **Static** 1D RNN, use
+and for the **Static** 1D complex RNN, use
 ```
 python train_static_cRNN.py
 ```
