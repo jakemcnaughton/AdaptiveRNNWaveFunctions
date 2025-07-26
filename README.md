@@ -8,12 +8,12 @@ This project introduces **Adaptive RNN Wave Functions** for variational quantum 
 
 ## Usage
 
-### 1D TFIM
-To run the **Adaptive** 1D TFIM model use 
+### `1D_TFIM`
+To run the **Adaptive** 1D RNN on the 1D TFIM model use 
 ```
 python train_adaptive.py
 ```
-and for the **Static** 1D TFIM model
+and for the **Static** 1D RNN on the 1D TFIM model
 ```
 python train_traditional.py
 ```
@@ -24,12 +24,12 @@ python train_adaptive.py --help
 python train_traditional.py --help
 ```
 
-### 2D Heisenberg
-To run the **Adaptive** 2D Heisenberg model use 
+### `2D_Heisenberg`
+To run the **Adaptive** 2D RNN on 2D Heisenberg model use 
 ```
 python 2D_Adaptive.py
 ```
-for the **Early Stopping** variant of the **Adaptive** 2D Heisenberg model use
+for the **Early Stopping** variant of the **Adaptive** 2D RNN on the 2D Heisenberg model, use
 ```
 python 2D_Traditional.py
 ```
@@ -38,10 +38,28 @@ and for the **Static** 2D Heisenberg model
 python 2D_Adaptive_EarlyStopping.py
 ```
 
-### 1D long-range TFIM
+### `Ising_long_range`
 
-### 1D Cluster State
+To run the **Adaptive** 1D RNN on the 1D long-range TFIM, you can run
+```
+python train_adaptive.py
+```
+and for the **Static** 1D RNN, use
+```
+python train_traditional.py
+```
 
+### `Cluster_state`
+To run the **Adaptive** 1D complex RNN on the 1D Cluster state Hamiltonian, you can run
+```
+python train_adaptive_cRNN.py
+```
+and for the **Static** 1D RNN, use
+```
+python train_traditional_cRNN.py
+```
+
+The hyperparameters can be adjusted by passing arguments in the previous Python commands.
 
 ## License
 The license of this work is derived from the BSD-3-Clause license. Ethical clauses are added to promote good uses of this code.
