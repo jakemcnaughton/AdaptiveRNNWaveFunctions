@@ -1,10 +1,10 @@
 # Adaptive RNN Wave Functions
 
-A JAX-based implementation of **Adaptive Recurrent Neural Network (RNN) Wave Functions / Quantum States** for ground state problems using Variational Monte Carlo (VMC).
+A JAX-based implementation of **[Adaptive Recurrent Neural Network (RNN) Wave Functions / Quantum States](https://arxiv.org/abs/2507.18700)** for ground state problems using Variational Monte Carlo (VMC).
 
 ## 🚀 Overview
 
-This project introduces **Adaptive RNN Wave Functions** for variational quantum Monte Carlo (VMC) simulations. Instead of fixing the architecture size from the start, the model **grows in complexity during training**, allowing better navigation of rugged optimization landscapes, reducing training runtime, and even improving accuracy.
+This project introduces **[Adaptive RNN Wave Functions](https://arxiv.org/abs/2507.18700)** for variational quantum Monte Carlo (VMC) simulations. Instead of fixing the architecture size from the start, the model **grows in complexity during training**, allowing better navigation of rugged optimization landscapes, reducing training runtime, and even improving accuracy.
 
 ## Usage
 
@@ -66,7 +66,13 @@ The license of this work is derived from the BSD-3-Clause license. Ethical claus
 
 ## Citing
 ```bibtex
-@article{AdaptiveRNNs,
-To be added
+@misc{AdaptiveRNNs,
+      title={Adaptive Neural Quantum States: A Recurrent Neural Network Perspective}, 
+      author={Jake McNaughton and Mohamed Hibat-Allah},
+      year={2025},
+      eprint={2507.18700},
+      archivePrefix={arXiv},
+      primaryClass={cond-mat.dis-nn},
+      url={https://arxiv.org/abs/2507.18700}, 
 }
 ```
