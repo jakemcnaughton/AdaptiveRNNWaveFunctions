@@ -1,5 +1,5 @@
 import jax
-from New_2D_RNN import StackedRNNModel
+from TwoD_RNN import StackedRNNModel
 import jax.numpy as jnp
 from functools import partial
 from typing import List, Tuple, Union, Optional, Callable, Any
