@@ -37,6 +37,7 @@ and for the **Static** 2D Heisenberg and J1-J2 models
 ```
 python 2D_Static.py
 ```
+Note that the J1-J2 model implementation is done without a Marshall sign prior.
 
 ### `Long_range_TFIM`
 
