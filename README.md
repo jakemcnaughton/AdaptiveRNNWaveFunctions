@@ -24,8 +24,8 @@ python train_adaptive.py --help
 python train_static.py --help
 ```
 
-### `2D_Heisenberg`
-To run the **Adaptive** 2D RNN on 2D Heisenberg model use 
+### `2D_Heisenberg and 2D_J1J2`
+To run the **Adaptive** 2D RNN on 2D Heisenberg and J1-J2 models use 
 ```
 python 2D_Adaptive.py
 ```
@@ -33,7 +33,7 @@ for the **Early Stopping** variant of the **Adaptive** 2D RNN on the 2D Heisenbe
 ```
 python 2D_Adaptive_EarlyStopping.py
 ```
-and for the **Static** 2D Heisenberg model
+and for the **Static** 2D Heisenberg and J1-J2 models
 ```
 python 2D_Static.py
 ```
